@@ -10,6 +10,8 @@ def makerow(row, pad=0):
         Parameters
         -------------------
         row: A row of data
+        pad (int): Pad size - the length of the longest string
+            in the data to create consistently sized columns
 
         Returns
         -------------------
