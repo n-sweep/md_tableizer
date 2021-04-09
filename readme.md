@@ -2,6 +2,13 @@
 
 Currently supports a list-of-lists, Numpy array or Pandas DataFrame as inputs.
 
+```
+pip install numpy
+pip install pandas
+pip install pyperclip
+```
+\* see note on `pyperclip` below
+
 # Example Usage:
 
 ```
@@ -25,6 +32,8 @@ tableize(toy_data, clip=True)
 # Note:
 
 This module relies on `pyperclip` by [Al Sweigart](https://github.com/asweigart/pyperclip) for clipboard functionality.  
+
+Install with `pip install pyperclip`
 
 From the `pyperclip` documentation:
 
