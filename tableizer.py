@@ -20,8 +20,11 @@ def makerow(row, pad=0):
         Markdown-formatted row string
         eg. | Here     | is       | an       | example  |
     """
-    padded = [item.ljust(pad) for item in row]
-    return '| ' + ' | '.join(padded) + ' |'
+    if type(pad) in (list, tuple):
+        padded = [item.ljust(width) for item, width in zip(row, pad)]
+    else:
+        padded = [item.ljust(pad) for item in row]
+    return f"| {' | '.join(padded)} |"
 
 
 def tableize(inp, clip=False):
@@ -41,23 +44,36 @@ def tableize(inp, clip=False):
 
     inp = np.array(inp)   # This handles pandas dataframes nicely
 
-    # Get longest row & longest word
-    rowlen = len(inp[0])
-    padlen = max([max([len(item) for item in row]) for row in inp])
+    # Get longest word in each column
+    col_widths = [max([len(c) for c in inp[:, i]]) for i in range(inp.shape[1])]
 
     # Create separator - this normalizes the width of every
     # column to the longest word in the table
-    separator = makerow(['-'*padlen for _ in range(rowlen)])
+    separator = makerow(['-' * w for w in col_widths])
 
     # Pad words to padlen
-    padded = [makerow(row, padlen) for row in inp]
+    padded = [makerow(row, col_widths) for row in inp]
     # Insert separator
     padded.insert(1, separator)
     output = '\n'.join(padded)
-    
+
     if clip:
         # Copy output to clipboard
         pyperclip.copy(output)
     else:
         # Return output string
         return output
+
+
+def main():
+    toy_data = [
+        ['Here', 'Are', 'Some', 'Titles'],
+        ['Here', 'is', 'some', 'data'],
+        ["Here's", 'some', 'more', 'data']
+    ]
+
+    print(tableize(toy_data))
+
+
+if __name__ == '__main__':
+    main()
