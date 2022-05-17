@@ -20,10 +20,10 @@ toy_data = [
 
 # Return the string
 tbl = tableize(toy_data)
- > | Here   | Are    | Some   | Titles |
- > | ------ | ------ | ------ | ------ |
- > | Here   | is     | some   | data   |
- > | Here's | some   | more   | data   |
+ > | Here   | Are  | Some | Titles |
+ > | ------ | ---- | ---- | ------ |
+ > | Here   | is   | some | data   |
+ > | Here's | some | more | data   |
 
 # OR copy output to your clipboard
 tableize(toy_data, clip=True)
